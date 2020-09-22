@@ -30,11 +30,11 @@ public class Item implements Serializable {
 	private Seller seller;
 
 	@Column(name = "auction_status_id", nullable = false)
-	private Long auctionStatusId;
+	private int auctionStatusId;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "accepted_bid_id")
-	private Bid bid;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "max_bid_id")
+	private Bid maxBid;
 
 	@Column(name = "start_date", nullable = false)
 	private Date startDate;

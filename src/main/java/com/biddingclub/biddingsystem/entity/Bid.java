@@ -1,11 +1,16 @@
 package com.biddingclub.biddingsystem.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="bid")
+@Getter
+@Setter
 public class Bid implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
