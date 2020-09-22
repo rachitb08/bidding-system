@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,5 +44,20 @@ public class ItemServiceImpl implements ItemService {
             auctionDetailsDTOS.add(auctionDetailsDTO);
         }
         return auctionDetailsDTOS;
+    }
+
+    @Override
+    public Item getItemById(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(() -> new BiddingException(EnumMessage.AUCTION_NOT_FOUND.getErrorCode(),EnumMessage.AUCTION_NOT_FOUND.getErrorMsg()));
+        if (EnumAuctionStatus.OVER.getId() == item.getAuctionStatusId() ||
+                item.getEndDate().before(new Date())) {
+            throw new BiddingException(EnumMessage.AUCTION_EXPIRED.getErrorCode(),EnumMessage.AUCTION_EXPIRED.getErrorMsg());
+        }
+        return item;
+    }
+
+    @Override
+    public Item saveItem(Item item) {
+        return itemRepository.save(item);
     }
 }

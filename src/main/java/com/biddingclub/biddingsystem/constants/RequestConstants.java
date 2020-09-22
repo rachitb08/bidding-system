@@ -7,4 +7,5 @@ public final class RequestConstants {
     }
 
     public static final String STATUS = "status";
+    public static final String ITEM_ID = "itemId";
 }
